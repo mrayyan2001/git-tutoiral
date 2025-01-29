@@ -121,4 +121,44 @@ git push -u origin <branch-name>
 
 > -f stands for force.
 
-> 25:23
+### Download a copy of the remote repository
+
+```bash
+git clone <URL> # Clone the repository to the current folder (the repository name will be the folder name)
+git clone <URL> <folder-name> # Clone the repository to a specific folder
+```
+
+### Pull
+
+- Get changes from remote to local.
+
+```bash
+git pull origin <branch-name> # Pull the changes from the remote repository
+git pull # Pull the changes from the remote repository if upstream is set
+```
+
+### Fetch
+
+- Get changes from remote to local without merging.
+
+```bash
+git fetch origin <branch-name> # Fetch the changes from the remote repository
+```
+
+## Summary
+
+### Create Online Backup
+
+1. `git remote add origin <URL>`
+2. `git push -u origin <branch-name>`
+
+### Sync Computer => GitHub
+
+1. `git add .`
+2. `git commit -m "message"`
+3. `git push origin <branch-name> -f`
+
+### Sync GitHub => Computer
+
+1. `git fetch origin <branch-name>`
+2. `git pull origin <branch-name>`
