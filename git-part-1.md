@@ -39,6 +39,12 @@ git config --global user.email "<email>"
 git config --global init.defaultBranch <name>
 ```
 
+### Set Default Editor
+
+```bash
+git config --global core.editor "<editor>" # e.g., "code --wait"
+```
+
 ## Creating a Version
 
 ### Initialize a Git Repository
