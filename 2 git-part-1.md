@@ -94,7 +94,7 @@ git log --oneline --graph   # Condensed history with a graph
 - Use `amend` to edit the last commit.
 
 ```bash
-git commit --amend -m "<new message>"
+git commit --amend -m "<new message>" # if you don't write a new message, the text editor will open
 ```
 
 ## Visualizing Git Changes
