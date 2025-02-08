@@ -207,3 +207,5 @@ git config --global alias.<alias-name> "<command>"
 ```bash
 rm -rf .git
 ```
+
+![alt text](image-5.png)
