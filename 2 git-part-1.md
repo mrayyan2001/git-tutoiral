@@ -97,6 +97,10 @@ git log --oneline --graph   # Condensed history with a graph
 git commit --amend -m "<new message>" # if you don't write a new message, the text editor will open
 ```
 
+```bash
+git commit --amend --no-edit # Keep the same message
+```
+
 ## Visualizing Git Changes
 
 - Tools like `git status` or integrated IDE features provide visualizations of code changes.

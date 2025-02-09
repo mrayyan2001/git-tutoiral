@@ -137,6 +137,11 @@ git pull origin <branch-name> # Pull the changes from the remote repository
 git pull # Pull the changes from the remote repository if upstream is set
 ```
 
+- `git pull` = `git fetch` + `git merge` (fetch and merge)
+
+1. `git fetch origin main`
+2. `git merge origin/main`
+
 ### Fetch
 
 - Get changes from remote to local without merging.
