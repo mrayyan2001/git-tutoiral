@@ -152,3 +152,8 @@ Stash allows you to save changes temporarily and reapply them later. It's useful
 - `git stash` to save changes.
 - `git stash list` to list stashes.
 - `git stash pop` to reapply and remove the last stash.
+- `git stash apply` to reapply the last stash.
+- `git stash save <name>` to save a named stash.
+- `git stash apply <stash_index>` to reapply a specific stash.
+- `git stash drop` to remove the last stash.
+- `git stash clear` to remove all stashes.
