@@ -131,3 +131,7 @@ top 10 examples of commit messages:
 8. for revert commits `Revert "commit message"`
 9. for initial commit `Initial commit`
 10. for resolving conflicts `resolve conflicts`
+
+## Another
+
+- `git branch -M <new-branch-name>` to rename the current branch
