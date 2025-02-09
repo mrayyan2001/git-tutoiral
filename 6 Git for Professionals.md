@@ -144,3 +144,11 @@ Instead use it for cleaning up your local commit hsitory before merging it into 
 <img src="image-20.png" width="300" >
 
 <img src="image-21.png" width="300" >
+
+## Stash
+
+Stash allows you to save changes temporarily and reapply them later. It's useful when you're not ready to commit changes but need to switch branches.
+
+- `git stash` to save changes.
+- `git stash list` to list stashes.
+- `git stash pop` to reapply and remove the last stash.
