@@ -51,3 +51,19 @@ Revert is a safe way to undo changes. It creates a new commit that undoes the ch
 - `git revert HEAD~2` to undo the last 2 commits.
 
 ## Submodules
+
+Submodules allow you to keep a Git repository as a subdirectory of another Git repository. They are useful for including third-party libraries without mixing external code with your project files.
+
+- Before this approach: you have to copy the code from the third-party library and paste it into your project. (ugly approach)
+
+- `git submodule add <repository-url>` to add a submodule to your project.
+
+## Search and Find
+
+You can filter your commit history by various criteria:
+
+- By Date `git log --after="2023-07-01" --before="2023-07-05"`
+- By Commit Message `git log --grep="refactored"`
+- By Author `git log --author="Heinemeier"`
+- By File `git log -- README.md`
+- By Branch Differences `git log feature/login..main` (commits in main that are not in feature/login)
