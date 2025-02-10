@@ -104,6 +104,144 @@ The `git log` command shows a list of commits in the repository, including the c
 
 ## Git Remote
 
-The `git remote` command manages connections to remote repositories. It allows you to add, remove, and view remote repositories. 
+The `git remote` command manages connections to remote repositories. It allows you to add, remove, and view remote repositories.
 
+Remote repositories are versions of your project that are hosted on the Internet or network. They can be used to collaborate with other developers and share code.
 
+Example of a remote repository: GitHub, GitLab, Bitbucket
+
+### Create a Remote Repository on GitHub
+
+1. Go to [GitHub](www.github.com) and log in to your account.
+2. Click on the + icon in the top right corner.
+3. Select New repository.
+4. Enter the repository name.
+5. Add a description.
+6. Choose public or private.
+7. Initialize with a README file or not.
+8. Click Create repository.
+9. Copy the repository URL.
+
+### Add a Remote Repository
+
+- `git remote add origin <repository-url>` -> add a remote repository (`origin` is the default name for the remote repository. You can use any name you like.)
+- `git remote set-url origin <URL>` -> change the URL of the remote repository
+- `git remote` -> list remote repositories
+- `git remote -v` -> list remote repositories with URLs (verbose)
+- `git remote remove origin` -> remove a remote repository
+
+We will have two repositories:
+
+- Local repository: on your computer.
+- Remote repository: on GitHub.
+
+## Git Push
+
+The `git push` command to send changes from the local repository to the remote repository. It updates the remote repository with the latest changes.
+
+`git push -u origin main` -> push changes to the remote repository (`-u` sets the upstream branch to track the remote branch)
+
+Before pushing changes to the remote repository, make sure to pull the latest changes from the remote repository to avoid conflicts.
+
+### Personal Access Token for GitHub Authentication
+
+You need to create a personal access token to authenticate with GitHub when pushing changes to a remote repository. You can create a token in your GitHub account settings.
+
+1. Go to GitHub.
+2. Click on your profile.
+3. Go to `Settings`.
+4. Click on `Developer settings`.
+5. Click on `Personal access tokens`.
+6. Click on `Generate new token`.
+7. Enter the password.
+8. Select the scopes.
+9. Click on `Generate token`.
+10. Copy the token.
+11. Use the token as a password.
+
+## Git Pull
+
+The `git pull` command fetches changes from the remote repository and merges them into the local repository. It updates the local repository with the latest changes from the remote repository.
+
+- `git pull origin main` -> pull changes from the remote repository (if you set the upstream branch with `-u`, you can use `git pull` without specifying the remote and branch)
+- Setting the upstream branch: `git branch --set-upstream-to=origin/main main` or `git branch -u origin/main main` or `git push -u origin main`
+
+`git pull` = `git fetch` + `git merge`
+
+1. `git fetch origin main` -> fetch changes from the remote repository without merging them into the local repository
+2. `git merge origin/main` -> merge changes into the local repository
+
+## Git Clone
+
+The `git clone` command creates a copy of a remote repository on your local machine. It downloads the repository files and sets up a local repository with the same version history. You don't need to initialize a Git repository before cloning a remote repository.
+
+- `git clone <repository-url>` -> Clone the repository to the current folder (the repository name will be the folder name)
+- `git clone <repository-url> <folder-name>` -> Clone the repository to a specific folder
+
+## GitHub Codespaces
+
+GitHub Codespaces is an online development environment that allows you to code directly in your browser. It provides a full-featured development environment with a code editor, terminal, and debugger.
+
+To create a Codespace:
+
+1. Go to your GitHub repository.
+2. Click on the `Code` button.
+3. Click on `Code Spaces`.
+4. Click on `New code space`.
+
+## Git Branches
+
+Branches in Git are used to work on different versions of the code simultaneously. They allow you to isolate changes and work on new features without affecting the main codebase.
+
+- Branching = work on multiple features at the same time
+- the new branch take a copy of the current branch and you can work on it without affecting the main branch
+- you can merge the new branch back to the main branch when you are done
+
+Imagine you are working on a large feature that requires multiple commits. Suddenly, your manager asks you to fix a critical bug. You don't want to mix your incomplete feature code with the bug fix. Branching solves this by allowing you to:
+
+1. Create a new branch for your feature.
+2. Switch back to the main branch to apply the bug fix.
+3. Continue working on your feature without interference.
+
+- `git branch` -> list all branches
+- `git branch <branch-name>` -> create a new branch
+- `git branch -d <branch-name>` -> delete a branch
+- `git branch -D <branch-name>` -> force delete a branch
+
+## Git Checkout
+
+The `git checkout` command is used to switch between branches in Git. It allows you to move between different branches and work on different versions of the code. You can also use it to create a new branch and switch to it in one step. and you can use it to switch between commits.
+
+- `git checkout <branch-name>` -> switch to a branch
+- `git checkout -b <branch-name>` -> create a new branch and switch to it
+- `git checkout <commit-id>` -> switch to a commit
+- `git checkout -b <branch-name> <commit-id>` -> create a new branch from a commit and switch to it
+- `git checkout -- <file>` -> discard changes in a file
+- `git checkout .` -> discard changes in all files
+- `git checkout HEAD~1` -> switch to the previous commit
+
+## Git Merge
+
+The `git merge` command is used to combine changes from different branches. It merges the changes from the source branch into the target branch. It creates a new commit with the combined changes.
+
+Merging combines changes from different branches into one. This is useful when you finish a feature and want to integrate it back into the main branch.
+
+The result of a merge is a combination of the changes from both branches.
+
+The merge go to the branch that you are working on. So if you are working on the new branch, the merge will go to the new branch and not the main branch. You have to switch to the main branch and merge the new branch to the main branch.
+
+- `git merge <branch-name>` -> merge changes from a branch into the current branch
+
+## Merge Conflicts
+
+A merge conflict occurs when Git cannot automatically combine changes from different branches, typically because the same part of the code was modified differently.
+
+When a merge conflict occurs, Git marks the conflicting lines in the affected files. You need to resolve the conflict manually by editing the files and choosing which changes to keep.
+
+1. Follow the same merging steps as before.
+2. If a conflict occurs, Git will pause the merge and tell you which files have 2. conflicts.
+3. Open the conflicting files in your code editor.
+4. Manually resolve the conflicts.
+5. Add the resolved files `git add .`
+6. Continue the merge `git merge --continue` or `git commit -m "Merge message"`
+7. Remove the new branch `git branch -d new-branch-name`
