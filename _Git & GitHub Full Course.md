@@ -63,7 +63,8 @@ After installing Git, you need to configure it with your name and email address.
 
 To start using Git in a project, you need to initialize a Git repository in the project directory. This creates a `.git` directory that stores all the version history and configuration files.
 
-`git init` -> initialize a Git repository in the current directory
+- `git init` -> initialize a Git repository in the current directory
+- `git rm .git/ -rf` -> remove the `.git` directory to uninitialize the repository
 
 ## Git Status
 
@@ -77,8 +78,17 @@ The `git add` command adds changes in the working directory to the staging area.
 
 The staging area lets you select which changes to include in the next commit.
 
-`git add <file>` -> add a specific file to the staging area
-`git add .` -> add all files except those listed in `.gitignore` to the staging area (It's not recommended to use this command, because it adds all files, including those that you don't want to commit)
+- `git add <file>` -> add a specific file to the staging area
+- `git add .` -> add all files except those listed in `.gitignore` to the staging area (It's not recommended to use this command, because it adds all files, including those that you don't want to commit)
+- `git rm --cached <file>` -> Untrack a file
+- `git reset <file>` or `git restore --staged <file>` -> remove a file from the staging area
+
+## Git Ignore
+
+The `.gitignore` file is used to specify files and directories that should be ignored by Git. It allows you to exclude files like log files, build artifacts, and temporary files from version control.
+
+- Create a `.gitignore` file in the root directory of the repository.
+- Add the files and directories you want to ignore to the `.gitignore` file.
 
 ## Git Commit
 
@@ -89,6 +99,7 @@ A commit represents a version of your code. It captures the current state of the
 - `git commit -m "Commit message"` -> commit changes with a message
 - `git commit -m "Commit message" -m "Description"` -> commit changes with a message and description
 - `git commit` -> commit changes with a message in the default editor
+- `git commit --amend` -> amend the last commit (change the commit message or add more changes to the last commit)
 
 ## Git Log
 
@@ -96,11 +107,23 @@ The `git log` command shows a list of commits in the repository, including the c
 
 `git log` -> show the commit history
 
-### Useful Flags for `git log`
+Useful Flags for `git log`
 
 - `--oneline` -> Condensed commit history
 - `--graph` -> Graphical commit history
 - `--all` -> Show all branches
+
+## Git Alias
+
+Git aliases are shortcuts for Git commands. They allow you to create custom commands that are easier to remember and type.
+
+- `git config --global alias.<alias-name> <command>` -> create a Git alias
+- `git config --global alias.<alias-name>` -> show the alias command
+- `git config --global --unset alias.<alias-name>` -> remove a Git alias
+
+Useful Git Aliases
+
+- `git config --global alias.lg "log --oneline --graph --all"` -> create an alias for a condensed graphical commit history
 
 ## Git Remote
 
@@ -139,7 +162,9 @@ We will have two repositories:
 
 The `git push` command to send changes from the local repository to the remote repository. It updates the remote repository with the latest changes.
 
-`git push -u origin main` -> push changes to the remote repository (`-u` sets the upstream branch to track the remote branch)
+`git push -u origin main` -> push changes to the remote repository (`-u` sets the upstream branch to track the remote branch it's stands for `--set-upstream`)
+
+you can use `-f` to force push the changes to the remote repository. It's not recommended to use it because it can overwrite changes in the remote repository.
 
 Before pushing changes to the remote repository, make sure to pull the latest changes from the remote repository to avoid conflicts.
 
@@ -216,9 +241,12 @@ The `git checkout` command is used to switch between branches in Git. It allows 
 - `git checkout -b <branch-name>` -> create a new branch and switch to it
 - `git checkout <commit-id>` -> switch to a commit
 - `git checkout -b <branch-name> <commit-id>` -> create a new branch from a commit and switch to it
-- `git checkout -- <file>` -> discard changes in a file
+- `git checkout -- <file>` or `git restore <file>` -> discard changes in a file
 - `git checkout .` -> discard changes in all files
 - `git checkout HEAD~1` -> switch to the previous commit
+- `git checkout -` -> switch to the previous branch
+
+Summary: `git checkout <commit-hash|branch-name|HEAD~1> <file|directory>` -> switch to a commit, branch, or previous commit and restore a file or directory
 
 ## Git Merge
 
@@ -231,6 +259,7 @@ The result of a merge is a combination of the changes from both branches.
 The merge go to the branch that you are working on. So if you are working on the new branch, the merge will go to the new branch and not the main branch. You have to switch to the main branch and merge the new branch to the main branch.
 
 - `git merge <branch-name>` -> merge changes from a branch into the current branch
+- `git merge --abort` -> abort the merge and restore the previous state (stop the merge process)
 
 ## Merge Conflicts
 
@@ -245,3 +274,24 @@ When a merge conflict occurs, Git marks the conflicting lines in the affected fi
 5. Add the resolved files `git add .`
 6. Continue the merge `git merge --continue` or `git commit -m "Merge message"`
 7. Remove the new branch `git branch -d new-branch-name`
+
+## Feature Branch Workflow
+
+A professional workflow used by teams to manage code changes. Involves creating feature branches, uploading them to GitHub, and performing code reviews via pull requests.
+
+1. Create a feature branch. -> `git checkout -b feature-branch-name`
+2. Developing the Feature -> make commits
+3. Upload the feature branch to GitHub. (all the team members can see our code) -> `git remote add origin <url>` -> `git push origin feature-branch-name`
+4. Create a `pull request`. (do code review)
+   1. Go to your GitHub repository.
+   2. Click on Pull Requests and then New Pull Request .
+   3. Compare new-feature with master.
+   4. Add a description and submit the pull request.
+5. Code Review and Merging (merge happens on GitHub) -> on GitHub click on `pull request` -> `the request` -> `merge pull request` -> `merge pull request` -> `confirm merge`
+   1. Teammates review the code and leave comments if necessary.
+   2. Once approved, merge the pull request into master.
+6. Syncing Local Repository -> `git checkout main` -> `git pull origin main`
+
+## Merge Conflicts in feature branches workflow (pull request)
+
+suppose we are working on two different branches and we want to merge them to the main branch. If there is a conflict, we have to resolve it in the main branch and not in the feature branch.
