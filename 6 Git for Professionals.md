@@ -2,15 +2,15 @@
 
 ## The Perfect Commit
 
-<img src="image-8.png" width="300" >
+<img src="./imgs/image-8.png" width="300" >
 
 ---
 
-<img src="image-10.png" width="300" >
+<img src="./imgs/image-10.png" width="300" >
 
 ---
 
-<img src="image-10.png" width="300" >
+<img src="./imgs/image-10.png" width="300" >
 
 - Add the right changes.
   - The goal is to create a commit that makes sense—one that only includes changes from a single topic. Avoid cramming all your current local changes into the next commit.
@@ -63,7 +63,7 @@ If you work in a team, establish a clear convention on how to work with branches
 > - Commit never directly to `main` or `master`! it's make through integration (`merge` or `rebase`) from a feature branch or `pull request`.
 > - Short-lived will be deleted after integration
 
-<img src="image-11.png" width="300" >
+<img src="./imgs/image-11.png" width="300" >
 
 ### Popular Branching Strategies
 
@@ -81,11 +81,11 @@ Pull requests are not a core Git feature but are provided by Git hosting platfor
 - Code Review: Have a second pair of eyes look over your code.
 - Contributing to Repositories: Contribute to repositories you don't have direct access to by forking and opening pull requests.
 
-<img src="image-14.png" width="300" >
+<img src="./imgs/image-14.png" width="300" >
 
 ---
 
-<img src="image-15.png" width="300" >
+<img src="./imgs/image-15.png" width="300" >
 
 ### Example: Using Pull Requests on GitHub
 
@@ -95,7 +95,7 @@ Pull requests are not a core Git feature but are provided by Git hosting platfor
 4. Make changes, commit them, and push the branch to your forked repository.
 5. Open a Pull Request: On GitHub, propose integrating your changes into the original repository.
 
-<img src="image-16.png" width="300" >
+<img src="./imgs/image-16.png" width="300" >
 
 > - Alwyas before `push` make sure to `pull` to avoid conflicts.
 > - `git pull origin main` this work if you are work on the original repository.
@@ -103,7 +103,7 @@ Pull requests are not a core Git feature but are provided by Git hosting platfor
 
 ## Merge Conflicts
 
-<img src="image-17.png" width="300" >
+<img src="./imgs/image-17.png" width="300" >
 
 - `git merge`, `git rebase`, `git pull`, `git cheary-pick` or `git stash apply` can cause merge conflicts.
 
@@ -124,7 +124,7 @@ When Git performs a merge, it looks for three commits:
 - Latest Revisions: Endpoints of each branch.
 - Git creates a new merge commit to connect the branches.
 
-<img src="image-18.png" width="300" >
+<img src="./imgs/image-18.png" width="300" >
 
 ### Rebase
 
@@ -139,11 +139,11 @@ Instead use it for cleaning up your local commit hsitory before merging it into 
 - apply the commits from the `<branch>`
 - apply the removed commits.
 
-<img src="image-19.png" width="300" >
+<img src="./imgs/image-19.png" width="300" >
 
-<img src="image-20.png" width="300" >
+<img src="./imgs/image-20.png" width="300" >
 
-<img src="image-21.png" width="300" >
+<img src="./imgs/image-21.png" width="300" >
 
 ## Stash
 

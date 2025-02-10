@@ -8,11 +8,11 @@ Imagine you are working on a large feature that requires multiple commits. Sudde
 - Switch back to the main branch to apply the bug fix.
 - Continue working on your feature without interference.
 
-<img src="image.png" alt="drawing" width="200"/>
+<img src="./imgs/image.png" alt="drawing" width="200"/>
 
 ---
 
-<img src="image-1.png" alt="drawing" width="200"/>
+<img src="./imgs/image-1.png" alt="drawing" width="200"/>
 
 ---
 
@@ -44,7 +44,7 @@ Imagine you are working on a large feature that requires multiple commits. Sudde
 
 A merge conflict occurs when Git cannot automatically combine changes from different branches, typically because the same part of the code was modified differently.
 
-<img src="image-2.png" alt="drawing" width="200"/>
+<img src="./imgs/image-2.png" alt="drawing" width="200"/>
 
 1. Follow the same merging steps as before.
 2. If a conflict occurs, Git will pause the merge and tell you which files have conflicts.
@@ -72,7 +72,7 @@ A merge conflict occurs when Git cannot automatically combine changes from diffe
    2. Once approved, merge the pull request into master.
 6. Syncing Local Repository -> `git checkout main` -> `git pull origin main`
 
-<img src="image-3.png" alt="drawing" width="200"/>
+<img src="./imgs/image-3.png" alt="drawing" width="200"/>
 
 ### Step of pulling
 
@@ -84,7 +84,7 @@ A merge conflict occurs when Git cannot automatically combine changes from diffe
 
 - suppose we are working on two different branches and we want to merge them to the main branch. If there is a conflict, we have to resolve it in the main branch and not in the feature branch.
 
-<img src="image-4.png" alt="drawing" width="200"/>
+<img src="./imgs/image-4.png" alt="drawing" width="200"/>
 
 1. push the two branches to GitHub
 2. create a pull request for the first branch
