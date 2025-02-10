@@ -101,6 +101,17 @@ A commit represents a version of your code. It captures the current state of the
 - `git commit` -> commit changes with a message in the default editor
 - `git commit --amend` -> amend the last commit (change the commit message or add more changes to the last commit)
 
+## Commit Message Best Practices
+
+A commit message is a brief description of changes made in a commit. Conventional Commits is a commit message convention that makes it easier to understand the changes in a repository.
+
+Example of a conventional commit message: `feat: add new feature`
+
+- The message consists of a type and a description.
+- The type can be feat, fix, docs, style, refactor, test, or chore.
+- The description is a brief summary of the changes made.
+- The message is written in the present tense.
+
 ## Git Log
 
 The `git log` command shows a list of commits in the repository, including the commit ID, author, date, and commit message. (It's like viewing the order history in an online store.)
@@ -232,6 +243,7 @@ Imagine you are working on a large feature that requires multiple commits. Sudde
 - `git branch <branch-name>` -> create a new branch
 - `git branch -d <branch-name>` -> delete a branch
 - `git branch -D <branch-name>` -> force delete a branch
+- `git branch -M <branch-name>` -> rename the current branch
 
 ## Git Checkout
 
@@ -295,3 +307,18 @@ A professional workflow used by teams to manage code changes. Involves creating 
 ## Merge Conflicts in feature branches workflow (pull request)
 
 suppose we are working on two different branches and we want to merge them to the main branch. If there is a conflict, we have to resolve it in the main branch and not in the feature branch.
+
+1. push the two branches to GitHub
+2. create a pull request for the first branch
+3. create a pull request for the second branch
+4. if there is a conflict, resolve it in the main branch you have different options to resolve the conflict
+   1. merge on github using web editor
+   2. merge on your local machine using command line
+      1. `git checkout main`
+      2. `git pull origin main`
+      3. `git checkout new-branch-name`
+      4. `git merge main`
+      5. resolve the conflict
+      6. `git add .`
+      7. `git commit -m "merge message"` or `git merge --continue`
+      8. `git push origin new-branch-name`
