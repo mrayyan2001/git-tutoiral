@@ -74,6 +74,11 @@ The `git status` command shows the current status of the repository, including u
 
 ## Git Add
 
+Workflow: Working Area → Staging Area → Repository
+
+- Move files from working to staging with `git add`.
+- Move files from staging to the repository with `git commit`.
+
 The `git add` command adds changes in the working directory to the staging area. It prepares the changes to be committed in the next step. (It's like adding items to a shopping cart before checkout.) or you can say it's like a checkpoint.
 
 The staging area lets you select which changes to include in the next commit.
@@ -101,7 +106,38 @@ A commit represents a version of your code. It captures the current state of the
 - `git commit` -> commit changes with a message in the default editor
 - `git commit --amend` -> amend the last commit (change the commit message or add more changes to the last commit)
 
-## Commit Message Best Practices
+## The Perfect Commit
+
+- Add the right changes.
+  - The goal is to create a commit that makes sense—one that only includes changes from a single topic. Avoid cramming all your current local changes into the next commit.
+  - Selectivity is Key: Being selective and carefully deciding what should go into the next commit is crucial. This approach separates different topics, making it easier to understand both for your colleagues and yourself in the future.
+  - Using the Staging Area: Git's staging area concept is helpful here. It allows you to select specific files or even parts of those files for the next commit. You can leave others for future commits.
+- Compose a good commit message.
+
+1. git status to see the changes.
+2. git add <file> to stage the changes. You can also use git add . to stage all changes, but we need to add just the right changes.
+3. git diff to see the changes that are staged. or git diff <file> to see the changes in a specific file. This command shows the difference between the working directory and the staging area.
+4. git add -p to interactively stage changes. This command allows you to select parts of a file to stage. (You might see two parts or chunks of changes. Let's say the first one belongs to the next commit's topic, but not the second one.)
+
+## The Perfect Commit Message
+
+Subject: concise summary of what happened.
+
+body: more detailed explanation.
+
+- what is now different?
+- what's the reason for the change?
+- Is there anything to watch out for/ anything particularly remarkable?
+
+git commit will open your default editor to write the commit message.
+
+Subject Line: Write something concise, less than 80 characters if possible. The subject should be a brief summary of what happened.
+
+Body of the Message: After an empty line, Git knows you're writing the body of the message, where you can provide a detailed explanation. Answer questions like:
+
+- What's now different than before?
+- What's the reason for the change?
+- Is there anything to watch out for?
 
 A commit message is a brief description of changes made in a commit. Conventional Commits is a commit message convention that makes it easier to understand the changes in a repository.
 
@@ -275,6 +311,12 @@ The merge go to the branch that you are working on. So if you are working on the
 
 ## Merge Conflicts
 
+- `git merge`, `git rebase`,` git pull`, `git cheary-pick` or `git stash apply` can cause merge conflicts.
+- Git will clearly notify you when a conflict occurs. Use git status to identify unmerged paths.
+- ignore merge conflicts: `git merge --abort` or `git rebase --abort`.
+- continue the merge: `git add <file>` then `git commit`. or `git merge --continue`. or `git rebase --continue`. after resolving the conflict.
+- How to solve the conflict? simply cleanup the file and remove the conflict markers `<<<<<<<`, `=======`, `>>>>>>>`.
+
 A merge conflict occurs when Git cannot automatically combine changes from different branches, typically because the same part of the code was modified differently.
 
 When a merge conflict occurs, Git marks the conflicting lines in the affected files. You need to resolve the conflict manually by editing the files and choosing which changes to keep.
@@ -322,3 +364,147 @@ suppose we are working on two different branches and we want to merge them to th
       6. `git add .`
       7. `git commit -m "merge message"` or `git merge --continue`
       8. `git push origin new-branch-name`
+
+## Branching Strategies
+
+### A Written Convention
+
+Agree on a Branching Worflow in Your Team
+
+- Git allows you to create branches - but it doesn't tell you how to use them!
+- You need a written best practice of how work is ideally structured in your team - to avoid mistakes & collisions.
+- It highly depends on your team / team size, on your project, and how you handle releases.
+- It helps to onboard new team members ("this is how we work here").
+
+If you work in a team, establish a clear convention on how to work with branches and document it. This helps avoid mistakes and collisions and aids in onboarding new team members.
+
+### Types of Branches
+
+- Long-Running Branches: These exist throughout the project's lifecycle, such as `main` or `master`. Other examples include `develop` or `production`.
+- Short-Lived Branches: Created for specific purposes and deleted after integration. Examples include `feature branches`, `bug fixes`, or `experiments`.
+
+Commit never directly to main or master! it's make through integration (merge or rebase) from a feature branch or pull request. Short-lived will be deleted after integration.
+
+### Popular Branching Strategies
+
+- GitHub Flow: Extremely lean and simple. Only one long-running branch (`main`), and all active work is done in short-lived branches.
+- Git Flow: Offers more structure and rules. Includes a `main` branch reflecting production state, a `develop` branch, `feature` branches, `release` branches, and `hotfix` branches.
+
+## Pull Requests
+
+Pull requests are not a core Git feature but are provided by Git hosting platforms like GitHub, GitLab, Bitbucket, etc. They facilitate communication and code review.
+
+### Why Use Pull Requests?
+
+- Code Review: Have a second pair of eyes look over your code.
+- Contributing to Repositories: Contribute to repositories you don't have direct access to by forking and opening pull requests.
+
+### Example: Using Pull Requests on GitHub
+
+1. Fork the repository. This creates a copy of the repository in your GitHub account.
+2. git clone <forked-repository-url> to clone the repository to your local machine.
+3. git checkout -b <branch-name> to create a new branch.
+4. Make changes, commit them, and push the branch to your forked repository.
+5. Open a Pull Request: On GitHub, propose integrating your changes into the original repository.
+
+- Alwyas before `push` make sure to `pull` to avoid conflicts.
+- `git pull origin main` this work if you are work on the original repository.
+- if you forked the repository and you want to update your forked repository with the original repository, to do that you need to add the original repository as a remote repository. git remote add upstream <original-repository-url> then `git pull upstream main` to pull the changes from the original repository to your forked repository. or you can use `git fetch upstream` then `git merge upstream/main`.
+
+## Merge vs Rebase
+
+### Merge
+
+When Git performs a merge, it looks for three commits:
+
+- Common Ancestor Commit: Where both branches had the same content.
+- Latest Revisions: Endpoints of each branch.
+- Git creates a new merge commit to connect the branches.
+
+### Rebase
+
+Rebase rewrites commit history to make development appear linear. It removes commits from one branch temporarily, applies new commits from another branch, and then reapplies the removed commits.
+
+Important Rule: Do not rewrite commits that have already been pushed to a shared repository.
+
+Instead use it for cleaning up your local commit hsitory before merging it into a shared team branch.
+
+- git rebase <branch>: Rebase the current branch onto <branch>.
+- git will remove all the commits from the current branch
+- apply the commits from the <branch>
+- apply the removed commits.
+
+## Stash
+
+Stash allows you to save changes temporarily and reapply them later. It's useful when you're not ready to commit changes but need to switch branches.
+
+- `git stash` to save changes.
+- `git stash list` to list stashes.
+- `git stash pop` to reapply and remove the last stash.
+- `git stash apply` to reapply the last stash.
+- `git stash save <name>` to save a named stash.
+- `git stash apply <stash_index>` to reapply a specific stash.
+- `git stash drop` to remove the last stash.
+- `git stash clear` to remove all stashes.
+
+## Interactive Rebase => (Weak in this section)
+
+- change a commit's message
+- delete commits
+- reorder commits
+- combine multiple commits into one
+- edit / split an existing commit intomultiple new ones
+
+1. How far back do you want to go?
+2. `git rebase -i HEAD~3` to go back 3 commits. to go back to the first commit use `git rebase -i --root`.
+3. `pick` to keep the commit as is.
+4. `reword` to change the commit message.
+5. `squash` to combine the commit with the previous commit.
+
+## Cherry-Pick
+
+Suppose you accidentally committed on the master branch instead of the feature/newsletter branch.
+
+- `git checkout feature/newsletter` to switch to the feature/newsletter branch.
+- `git cherry-pick <commit-hash>` to copy the commit from the master branch to the feature/newsletter branch.
+- Clean Up the Master Branch (Optional):
+  - `git checkout master` to switch to the master branch.
+  - `git reset --hard HEAD~1` to remove the last commit from the master branch.
+
+## Reflog
+
+The reflog is Git's diary, logging every movement of the HEAD pointer. It's invaluable for undoing mistakes.
+
+1. `git reset --hard <commit-hash>` to go back to a previous commit. or `git reset --hard HEAD~1` to go back one commit.
+2. `git reflog` to see the history of the HEAD pointer.
+3. `git reset <commit-hash>` to go back to a previous commit.
+
+> `git checkout -b <branch-name> <commit-hash>` to create a new branch from a previous commit.
+
+also if you remove branch by mistake you can recover it by using `git reflog` and see when you checkout to another branch and then you can recover it by `git checkout -b <branch-name> <commit-hash>`.
+
+## Revert
+
+Revert is a safe way to undo changes. It creates a new commit that undoes the changes from a previous commit.
+
+- `git revert <commit-hash>` to undo the changes from a previous commit.
+- `git revert HEAD` to undo the last commit.
+- `git revert HEAD~2` to undo the last 2 commits.
+
+## Submodules
+
+Submodules allow you to keep a Git repository as a subdirectory of another Git repository. They are useful for including third-party libraries without mixing external code with your project files.
+
+- Before this approach: you have to copy the code from the third-party library and paste it into your project. (ugly approach)
+
+- `git submodule add <repository-url>` to add a submodule to your project.
+
+## Search and Find
+
+You can filter your commit history by various criteria:
+
+- By Date `git log --after="2023-07-01" --before="2023-07-05"`
+- By Commit Message `git log --grep="refactored"`
+- By Author `git log --author="Heinemeier"`
+- By File `git log -- README.md`
+- By Branch Differences `git log feature/login..main` (commits in main that are not in feature/login)
